@@ -3,7 +3,7 @@ package ru.countermeasure.wallpapershome.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class Wallpaper(
     @SerializedName("id")
     val id: String?,
     @SerializedName("url")
