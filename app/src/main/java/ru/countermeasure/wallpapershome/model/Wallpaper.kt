@@ -21,13 +21,13 @@ data class Wallpaper(
     @SerializedName("category")
     val category: String?,
     @SerializedName("dimension_x")
-    val dimensionX: Int?,
+    val dimensionX: Int,
     @SerializedName("dimension_y")
-    val dimensionY: Int?,
+    val dimensionY: Int,
     @SerializedName("resolution")
     val resolution: String?,
     @SerializedName("ratio")
-    val ratio: String?,
+    val ratio: Float,
     @SerializedName("file_size")
     val fileSize: Int?,
     @SerializedName("file_type")
