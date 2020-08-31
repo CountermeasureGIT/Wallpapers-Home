@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Wallpapers Home</string>
+    <string name="search_action">Search</string>
+    <string name="latest_screen_label">Latest</string>
+    <string name="toplist_screen_label">Top list</string>
+    <string name="random_screen_label">Random</string>
+    <string name="filter_action">Filter</string>
+</resources>
