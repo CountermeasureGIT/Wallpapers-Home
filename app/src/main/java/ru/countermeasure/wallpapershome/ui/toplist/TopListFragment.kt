@@ -2,9 +2,11 @@ package ru.countermeasure.wallpapershome.ui.toplist
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_toplist.*
@@ -27,7 +29,30 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
     private val wallpaperAdapter by lazy {
         WallpaperAdapter(
             halfScreen
-        )
+        ).apply {
+            addLoadStateListener { loadStates ->
+                when (loadStates.append) {
+                    is LoadState.Loading -> {
+                        Log.d("TAG", "loading")
+                        swipeToRefreshBottom.post {
+                            swipeToRefreshBottom.isRefreshing = true
+                        }
+                    }
+                    is LoadState.NotLoading -> {
+                        Log.d("TAG", "not loading")
+                        swipeToRefreshBottom.post {
+                            swipeToRefreshBottom.isRefreshing = false
+                        }
+                    }
+                    is LoadState.Error -> {
+                        Log.d("TAG", "error")
+                        swipeToRefreshBottom.post {
+                            swipeToRefreshBottom.isRefreshing = false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,6 +69,7 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
         swipeToRefresh.setOnRefreshListener {
             viewModel.onRefresh()
         }
+        swipeToRefreshBottom.isEnabled = false
     }
 
     override fun onResume() {

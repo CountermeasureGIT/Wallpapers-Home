@@ -24,9 +24,9 @@ class WallpapersPagingSource(
         return LoadResult.Page(
             response.data,
             null,
-            response.meta?.currentPage?.plus(1),
-            LoadResult.Page.COUNT_UNDEFINED,
-            LoadResult.Page.COUNT_UNDEFINED
+            response.meta.currentPage + 1,
+            response.meta.currentPage * response.meta.perPage,
+            response.meta.total
         )
     }
 }

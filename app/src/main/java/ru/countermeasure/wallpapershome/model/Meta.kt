@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 
 data class Meta(
     @SerializedName("current_page")
-    val currentPage: Int?,
+    val currentPage: Int,
     @SerializedName("last_page")
-    val lastPage: Int?,
+    val lastPage: Int,
     @SerializedName("per_page")
-    val perPage: Int?,
+    val perPage: Int,
     @SerializedName("total")
-    val total: Int?,
+    val total: Int,
     @SerializedName("query")
-    val query: Any?,
+    val query: String?,
     @SerializedName("seed")
-    val seed: Any?
+    val seed: String?
 )

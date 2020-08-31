@@ -7,5 +7,5 @@ data class WallpapersDataHolder(
     @SerializedName("data")
     val data: List<Wallpaper>,
     @SerializedName("meta")
-    val meta: Meta?
+    val meta: Meta
 )

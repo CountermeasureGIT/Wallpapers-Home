@@ -30,11 +30,10 @@ class TopListViewModel(
     val error: Observable<String> = errorRelay.hide()
 
     private lateinit var pagingSource: PagingSource<Int, Wallpaper>
-    private val pager: Pager<Int, Wallpaper> = Pager(PagingConfig(pageSize = 24)) {
+    private val pager: Pager<Int, Wallpaper> = Pager(PagingConfig(pageSize = 24, enablePlaceholders = true)) {
         pagingSource = WallpapersPagingSource(wallheavenService)
         pagingSource
     }
-
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -43,25 +42,6 @@ class TopListViewModel(
     }
 
     private fun fetchWallpapers() {
-/*        wallheavenService.getList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { loadingRelay.accept(true) }
-            .doFinally { loadingRelay.accept(false) }
-            .subscribe(
-                { wallpapers ->
-                    wallpapers.data?.let {
-                        dataRelay.accept(it)
-                    }
-
-                },
-                { exception ->
-                    exception.localizedMessage?.let {
-                        errorRelay.accept(it)
-                    }
-                }
-            )*/
-
         compositeDisposable.add(pager.flowable.cachedIn(viewModelScope)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
