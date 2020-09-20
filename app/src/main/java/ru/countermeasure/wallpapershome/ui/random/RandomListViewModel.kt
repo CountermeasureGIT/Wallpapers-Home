@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.ui.toplist
+package ru.countermeasure.wallpapershome.ui.random
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,13 +19,12 @@ import ru.countermeasure.wallpapershome.network.Filter
 import ru.countermeasure.wallpapershome.network.WallheavenApi
 import ru.countermeasure.wallpapershome.network.WallheavenService
 
-class TopListViewModel(
+class RandomListViewModel(
     private val wallheavenService: WallheavenService = WallheavenApi
 ) : ViewModel() {
     private var currentFilter = Filter(
-        sorting = Filter.Sorting.TOPLIST,
+        sorting = Filter.Sorting.RANDOM,
         topRange = Filter.TopRange.M1,
-        order = Filter.Order.DESC,
         categories = listOf(Filter.Category.ANIME, Filter.Category.GENERAL, Filter.Category.PEOPLE)
     )
 

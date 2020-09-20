@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.ui.toplist
+package ru.countermeasure.wallpapershome.ui.latest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,11 +19,11 @@ import ru.countermeasure.wallpapershome.network.Filter
 import ru.countermeasure.wallpapershome.network.WallheavenApi
 import ru.countermeasure.wallpapershome.network.WallheavenService
 
-class TopListViewModel(
+class LatestViewModel(
     private val wallheavenService: WallheavenService = WallheavenApi
 ) : ViewModel() {
     private var currentFilter = Filter(
-        sorting = Filter.Sorting.TOPLIST,
+        sorting = Filter.Sorting.DATE_ADDED,
         topRange = Filter.TopRange.M1,
         order = Filter.Order.DESC,
         categories = listOf(Filter.Category.ANIME, Filter.Category.GENERAL, Filter.Category.PEOPLE)
@@ -73,9 +73,5 @@ class TopListViewModel(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
-    }
-
-    fun onRefresh() {
-        pagingSource.invalidate()
     }
 }

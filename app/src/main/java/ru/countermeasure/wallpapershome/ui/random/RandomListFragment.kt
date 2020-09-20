@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.ui.toplist
+package ru.countermeasure.wallpapershome.ui.random
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -9,17 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_toplist.*
+import kotlinx.android.synthetic.main.fragment_random.*
 import ru.countermeasure.wallpapershome.R
 import ru.countermeasure.wallpapershome.WallpaperAdapter
 
-class TopListFragment : Fragment(R.layout.fragment_toplist) {
-
-    companion object {
-        fun newInstance() = TopListFragment()
-    }
-
-    private val viewModel: TopListViewModel by viewModels()
+class RandomListFragment : Fragment(R.layout.fragment_random) {
+    private val viewModel: RandomListViewModel by viewModels()
     private val renderDisposables = CompositeDisposable()
     private val halfScreen by lazy {
         val displayMetrics = DisplayMetrics()

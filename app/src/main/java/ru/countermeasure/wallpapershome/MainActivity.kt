@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.main_activity.*
-import ru.countermeasure.wallpapershome.ui.latest.LatestFragment
-import ru.countermeasure.wallpapershome.ui.random.RandromFragment
+import ru.countermeasure.wallpapershome.ui.latest.LatestListFragment
+import ru.countermeasure.wallpapershome.ui.random.RandomListFragment
 import ru.countermeasure.wallpapershome.ui.toplist.TopListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment = when (position) {
             0 -> TopListFragment.newInstance()
-            1 -> LatestFragment()
-            else -> RandromFragment()
+            1 -> LatestListFragment()
+            else -> RandomListFragment()
         }
     }
 

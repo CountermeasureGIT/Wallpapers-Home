@@ -33,6 +33,11 @@ object WallheavenApi : WallheavenService {
 
     private val api by lazy { retrofit.create(WallheavenService::class.java) }
 
-    override fun getList(): Single<WallpapersDataHolder> = api.getList()
+    override fun getList(queryMap: Map<String, String>): Single<WallpapersDataHolder> =
+        api.getList(queryMap)
+
+    override fun getList(queryMap: Map<String, String>, page: Int): Single<WallpapersDataHolder> =
+        api.getList(queryMap, page)
+
     override fun getTopList(page: Int): Single<WallpapersDataHolder> = api.getTopList(page)
 }

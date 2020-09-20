@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_wallpaper_card.*
 import ru.countermeasure.wallpapershome.model.Wallpaper
+import kotlin.math.round
 
 class WallpaperAdapter(private val halfScreen: Int) :
     PagingDataAdapter<Wallpaper, WallpaperAdapter.WallpaperViewHolder>(
@@ -32,7 +33,8 @@ class WallpaperAdapter(private val halfScreen: Int) :
         fun bind(wallpaper: Wallpaper?) {
             if (wallpaper != null) {
                 wallpaperImageView.layoutParams.width = halfScreen
-                wallpaperImageView.layoutParams.height = (halfScreen / wallpaper.ratio).toInt()
+                wallpaperImageView.layoutParams.height =
+                    round(halfScreen / (wallpaper.dimensionX.toDouble() / wallpaper.dimensionY)).toInt()
 
                 Glide.with(wallpaperImageView.context)
                     .load(wallpaper.thumbs?.original)
