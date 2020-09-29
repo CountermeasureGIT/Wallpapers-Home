@@ -3,18 +3,24 @@ package ru.countermeasure.wallpapershome.network
 data class Filter(
     /** Search fuzzily for a tags/keywords*/
     val searchFuzzily: List<String> = emptyList(),
+
     /**  Tags, that must be in a result*/
     val tagsInclude: List<String> = emptyList(),
+
     /**  Tags, that must NOT be in a result*/
     val tagsExclude: List<String> = emptyList(),
+
     /** 100(default if not present)/101/111/etc (general/anime/people)*/
     val categories: List<Category>,
+
     /** Method of sorting results
      * date_added(default if not present), relevance, random, views, favorites, toplist*/
     val sorting: Sorting,
+
     /** Sorting order
      * desc(default if not present), asc*/
     val order: Order? = null,
+
     /** Sorting MUST be set to 'toplist'
      * 1d, 3d, 1w, 1M(default if not present), 3M, 6M, 1y*/
     val topRange: TopRange? = null
