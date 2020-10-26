@@ -10,8 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import ru.countermeasure.wallpapershome.WallpapersPagingInteractor
-import ru.countermeasure.wallpapershome.model.Wallpaper
-import ru.countermeasure.wallpapershome.network.Filter
+import ru.countermeasure.wallpapershome.model.Filter
+import ru.countermeasure.wallpapershome.model.ListWallpaper
 import ru.countermeasure.wallpapershome.network.WallheavenApi
 import ru.countermeasure.wallpapershome.network.WallheavenService
 
@@ -24,15 +24,15 @@ class RandomListViewModel(
     private var currentFilter = Filter(
         sorting = Filter.Sorting.RANDOM,
         topRange = Filter.TopRange.M1,
-        categories = listOf(Filter.Category.ANIME, Filter.Category.GENERAL, Filter.Category.PEOPLE)
+        categories = listOf(/*Filter.Category.ANIME, */Filter.Category.GENERAL, /*Filter.Category.PEOPLE*/)
     )
 
     private val loadingRelay = BehaviorRelay.createDefault(false)
-    private val dataRelay = BehaviorRelay.create<PagingData<Wallpaper>>()
+    private val dataRelay = BehaviorRelay.create<PagingData<ListWallpaper>>()
     private val errorRelay = BehaviorRelay.create<String>()
     private val filterRelay = BehaviorRelay.createDefault(currentFilter)
 
-    val data: Observable<PagingData<Wallpaper>> = dataRelay.hide()
+    val data: Observable<PagingData<ListWallpaper>> = dataRelay.hide()
     val loading: Observable<Boolean> = loadingRelay.hide()
     val error: Observable<String> = errorRelay.hide()
     val filter: Observable<Filter> = filterRelay.hide()
@@ -41,7 +41,7 @@ class RandomListViewModel(
 
     init {
         compositeDisposable.addAll(
-            wallpapersInteractor.getPagedListForFilter(currentFilter)
+            wallpapersInteractor.getWallpapersListStream(currentFilter)
                 .cachedIn(viewModelScope)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

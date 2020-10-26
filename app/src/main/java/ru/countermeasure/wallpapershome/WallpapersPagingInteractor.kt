@@ -6,42 +6,35 @@ import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.rxjava2.flowable
 import io.reactivex.Flowable
-import ru.countermeasure.wallpapershome.model.Wallpaper
-import ru.countermeasure.wallpapershome.network.Filter
+import ru.countermeasure.wallpapershome.model.Filter
+import ru.countermeasure.wallpapershome.model.ListWallpaper
 import ru.countermeasure.wallpapershome.network.WallheavenService
 
 class WallpapersPagingInteractor(
     private val wallheavenService: WallheavenService
 ) {
     companion object {
-        private const val PAGE_SIZE = 24
-        private const val PREFETCH_DISTANCE = 8
-        private const val INITIAL_LOAD_SIZE = 1
+        private const val PAGE_SIZE = 2
+        private const val PREFETCH_DISTANCE = PAGE_SIZE
+        private const val INITIAL_LOAD_SIZE = PAGE_SIZE * 2
     }
 
-    private var pager: Pager<Int, Wallpaper>? = null
+    private lateinit var pager: Pager<Int, ListWallpaper>
     private lateinit var filter: Filter
-    private lateinit var pagingSource: PagingSource<Int, Wallpaper>
-    private lateinit var pagerFlowable: Flowable<PagingData<Wallpaper>>
+    private lateinit var pagingSource: PagingSource<Int, ListWallpaper>
 
-    fun getPagedListForFilter(newFilter: Filter): Flowable<PagingData<Wallpaper>> {
+    fun getWallpapersListStream(newFilter: Filter): Flowable<PagingData<ListWallpaper>> {
         filter = newFilter
-        if (pager == null) {
-            pager = createPager().also {
-                pagerFlowable = it.flowable
-            }
-        } else {
-            pagingSource.invalidate()
-        }
-        return pagerFlowable
+        pager = createPager()
+        return pager.flowable
     }
 
-    private fun createPager(): Pager<Int, Wallpaper> {
+    private fun createPager(): Pager<Int, ListWallpaper> {
         return Pager(
             PagingConfig(
                 pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = INITIAL_LOAD_SIZE
+                initialLoadSize = INITIAL_LOAD_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE
             )
         ) {
             WallpapersPagingSource(wallheavenService, filter).also {

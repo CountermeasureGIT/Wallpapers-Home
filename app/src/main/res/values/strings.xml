@@ -5,4 +5,9 @@
     <string name="toplist_screen_label">Top list</string>
     <string name="random_screen_label">Random</string>
     <string name="filter_action">Filter</string>
+    <string name="network_error_retry_button">Retry</string>
+    <string name="wait_a_bit_please">Wait a bit, please…</string>
+    <string name="detailed_screen_set_as_wallpaper_button">Set as wallpaper</string>
+    <string name="detailed_screen_download_button">Download</string>
+    <string name="detailed_screen_share_button">Share</string>
 </resources>

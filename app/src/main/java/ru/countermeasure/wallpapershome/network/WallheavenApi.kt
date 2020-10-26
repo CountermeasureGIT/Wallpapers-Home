@@ -8,7 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.countermeasure.wallpapershome.BuildConfig
-import ru.countermeasure.wallpapershome.model.WallpapersDataHolder
+import ru.countermeasure.wallpapershome.model.WallpaperInfoResponse
+import ru.countermeasure.wallpapershome.model.WallpapersListResponse
 
 object WallheavenApi : WallheavenService {
     private val gson by lazy { Gson() }
@@ -33,11 +34,9 @@ object WallheavenApi : WallheavenService {
 
     private val api by lazy { retrofit.create(WallheavenService::class.java) }
 
-    override fun getList(queryMap: Map<String, String>): Single<WallpapersDataHolder> =
+    override fun getList(queryMap: Map<String, String>): Single<WallpapersListResponse> =
         api.getList(queryMap)
 
-    override fun getList(queryMap: Map<String, String>, page: Int): Single<WallpapersDataHolder> =
-        api.getList(queryMap, page)
-
-    override fun getTopList(page: Int): Single<WallpapersDataHolder> = api.getTopList(page)
+    override fun getWallpaperInfo(id: String): Single<WallpaperInfoResponse> =
+        api.getWallpaperInfo(id)
 }

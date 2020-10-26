@@ -2,16 +2,18 @@ package ru.countermeasure.wallpapershome.ui.toplist
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_toplist.*
 import ru.countermeasure.wallpapershome.R
 import ru.countermeasure.wallpapershome.WallpaperAdapter
+import ru.countermeasure.wallpapershome.ui.WallpapersLoadStateAdapter
+import ru.countermeasure.wallpapershome.ui.detailed.DetailedFragment
+import ru.countermeasure.wallpapershome.utils.navigateTo
+import ru.countermeasure.wallpapershome.utils.setSlideAnimation
 
 class TopListFragment : Fragment(R.layout.fragment_toplist) {
 
@@ -29,31 +31,13 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
         (displayMetrics.widthPixels - listPadding) / 2
     }
     private val wallpaperAdapter by lazy {
-        WallpaperAdapter(
-            halfScreen
-        ).apply {
-            addLoadStateListener { loadStates ->
-                when (loadStates.append) {
-                    is LoadState.Loading -> {
-                        Log.d("TAG", "loading")
-                        swipeToRefreshBottom.post {
-                            swipeToRefreshBottom.isRefreshing = true
-                        }
-                    }
-                    is LoadState.NotLoading -> {
-                        Log.d("TAG", "not loading")
-                        swipeToRefreshBottom.post {
-                            swipeToRefreshBottom.isRefreshing = false
-                        }
-                    }
-                    is LoadState.Error -> {
-                        Log.d("TAG", "error")
-                        swipeToRefreshBottom.post {
-                            swipeToRefreshBottom.isRefreshing = false
-                        }
-                    }
-                }
-            }
+        WallpaperAdapter(halfScreen) {
+            activity?.supportFragmentManager?.navigateTo(
+                DetailedFragment::class.java,
+                args = DetailedFragment.createBundle(it),
+                setupFragmentTransaction = {
+                    it.setSlideAnimation()
+                })
         }
     }
 
@@ -61,7 +45,11 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
         super.onActivityCreated(savedInstanceState)
 
         wallpapersRecyclerView.apply {
-            adapter = wallpaperAdapter
+            adapter = wallpaperAdapter.withLoadStateFooter(
+                footer = WallpapersLoadStateAdapter {
+                    wallpaperAdapter.retry()
+                }
+            )
             layoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL).apply {
                     gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE

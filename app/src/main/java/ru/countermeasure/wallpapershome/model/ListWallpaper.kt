@@ -1,11 +1,14 @@
 package ru.countermeasure.wallpapershome.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class Wallpaper(
+@Parcelize
+data class ListWallpaper(
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("url")
     val url: String?,
     @SerializedName("short_url")
@@ -40,4 +43,4 @@ data class Wallpaper(
     val path: String?,
     @SerializedName("thumbs")
     val thumbs: Thumbs?
-)
+) : Parcelable
