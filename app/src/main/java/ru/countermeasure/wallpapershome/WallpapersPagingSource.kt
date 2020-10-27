@@ -3,10 +3,10 @@ package ru.countermeasure.wallpapershome
 import androidx.paging.rxjava2.RxPagingSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import ru.countermeasure.wallpapershome.model.Filter
-import ru.countermeasure.wallpapershome.model.ListWallpaper
-import ru.countermeasure.wallpapershome.model.WallpapersListResponse
-import ru.countermeasure.wallpapershome.network.WallheavenService
+import ru.countermeasure.wallpapershome.data.network.WallheavenService
+import ru.countermeasure.wallpapershome.domain.model.Filter
+import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
+import ru.countermeasure.wallpapershome.domain.model.WallpapersListResponse
 
 class WallpapersPagingSource(
     val api: WallheavenService,
