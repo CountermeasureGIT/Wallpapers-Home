@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_arrow_back" />
 
-        <ImageView
-            android:id="@+id/wallpaperImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/setOnHomeScreenButton"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/detailed_screen_set_as_wallpaper_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wallpaperImageView" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/downloadButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
-            android:text="@string/detailed_screen_download_button"
-            app:layout_constraintLeft_toLeftOf="@id/setOnHomeScreenButton"
-            app:layout_constraintRight_toLeftOf="@id/shareButton"
-            app:layout_constraintTop_toBottomOf="@id/setOnHomeScreenButton" />
+            <ImageView
+                android:id="@+id/wallpaperImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:text="@string/detailed_screen_share_button"
-            app:layout_constraintLeft_toRightOf="@id/downloadButton"
-            app:layout_constraintRight_toRightOf="@id/setOnHomeScreenButton"
-            app:layout_constraintTop_toBottomOf="@id/setOnHomeScreenButton" />
+            <Button
+                android:id="@+id/setOnHomeScreenButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/detailed_screen_set_as_wallpaper_button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wallpaperImageView" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_arrow_back" />
+            <Button
+                android:id="@+id/downloadButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="@string/detailed_screen_download_button"
+                app:layout_constraintLeft_toLeftOf="@id/setOnHomeScreenButton"
+                app:layout_constraintRight_toLeftOf="@id/shareButton"
+                app:layout_constraintTop_toBottomOf="@id/setOnHomeScreenButton" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="@string/detailed_screen_share_button"
+                app:layout_constraintLeft_toRightOf="@id/downloadButton"
+                app:layout_constraintRight_toRightOf="@id/setOnHomeScreenButton"
+                app:layout_constraintTop_toBottomOf="@id/setOnHomeScreenButton" />
 
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

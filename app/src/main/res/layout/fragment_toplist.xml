@@ -12,34 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wallpapersRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/wallpapersRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="@dimen/wallpaper_list_padding"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:itemCount="13"
-                tools:listitem="@layout/item_wallpaper_card" />
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeToRefreshBottom"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="bottom"
-                android:rotationX="180">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp" />
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/wallpaper_list_padding"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:itemCount="13"
+            tools:listitem="@layout/item_wallpaper_card" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

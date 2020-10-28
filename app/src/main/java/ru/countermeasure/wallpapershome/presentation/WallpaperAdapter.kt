@@ -45,8 +45,8 @@ class WallpaperAdapter(
 
         fun bind(wallpaper: ListWallpaper?) {
             item = wallpaper
-            number.text = (bindingAdapterPosition / 24 + 1).toString()
-            imageLoadingProgressBar.isVisible = wallpaper == null
+//            number.text = (bindingAdapterPosition / 24 + 1).toString()
+//            imageLoadingProgressBar.isVisible = wallpaper == null
             wallpaperImageView.isVisible = wallpaper != null
 
             wallpaper?.let {

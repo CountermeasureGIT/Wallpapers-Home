@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_latest.*
 import ru.countermeasure.wallpapershome.R
@@ -14,6 +15,7 @@ import ru.countermeasure.wallpapershome.presentation.detailed.DetailedFragment
 import ru.countermeasure.wallpapershome.utils.navigateTo
 import ru.countermeasure.wallpapershome.utils.setSlideAnimation
 
+@AndroidEntryPoint
 class LatestListFragment : Fragment(R.layout.fragment_latest) {
     private val viewModel: LatestViewModel by viewModels()
     private val renderDisposables = CompositeDisposable()
@@ -46,7 +48,6 @@ class LatestListFragment : Fragment(R.layout.fragment_latest) {
                 }
             setHasFixedSize(true)
         }
-        swipeToRefreshBottom.isEnabled = false
     }
 
     override fun onResume() {

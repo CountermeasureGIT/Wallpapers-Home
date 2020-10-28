@@ -2,7 +2,9 @@ package ru.countermeasure.wallpapershome.presentation.toplist
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -39,8 +41,13 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
                 args = DetailedFragment.createBundle(it),
                 setupFragmentTransaction = {
                     it.setSlideAnimation()
-                })
+                }
+            )
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,7 +65,12 @@ class TopListFragment : Fragment(R.layout.fragment_toplist) {
                 }
             setHasFixedSize(true)
         }
-        swipeToRefreshBottom.isEnabled = false
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onResume() {
