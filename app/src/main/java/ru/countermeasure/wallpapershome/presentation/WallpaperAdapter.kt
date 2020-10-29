@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -45,14 +46,15 @@ class WallpaperAdapter(
 
         fun bind(wallpaper: ListWallpaper?) {
             item = wallpaper
-//            number.text = (bindingAdapterPosition / 24 + 1).toString()
 //            imageLoadingProgressBar.isVisible = wallpaper == null
             wallpaperImageView.isVisible = wallpaper != null
 
             wallpaper?.let {
-                wallpaperImageView.layoutParams.width = halfScreen
-                wallpaperImageView.layoutParams.height =
-                    round(halfScreen / (wallpaper.dimensionX.toDouble() / wallpaper.dimensionY)).toInt()
+                wallpaperImageView.updateLayoutParams {
+                    width = halfScreen
+                    wallpaperImageView.layoutParams.height =
+                        round(halfScreen / (wallpaper.dimensionX.toDouble() / wallpaper.dimensionY)).toInt()
+                }
 
                 Glide.with(wallpaperImageView.context)
                     .load(wallpaper.thumbs?.original)
