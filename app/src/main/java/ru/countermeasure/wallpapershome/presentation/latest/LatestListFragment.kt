@@ -3,22 +3,22 @@ package ru.countermeasure.wallpapershome.presentation.latest
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_latest.*
 import ru.countermeasure.wallpapershome.R
+import ru.countermeasure.wallpapershome.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation.WallpaperAdapter
 import ru.countermeasure.wallpapershome.presentation.detailed.DetailedFragment
 import ru.countermeasure.wallpapershome.utils.navigateTo
 import ru.countermeasure.wallpapershome.utils.setSlideAnimation
 
 @AndroidEntryPoint
-class LatestListFragment : Fragment(R.layout.fragment_latest) {
+class LatestListFragment : BaseFragment() {
+    override val layoutRes: Int = R.layout.fragment_latest
+
     private val viewModel: LatestViewModel by viewModels()
-    private val renderDisposables = CompositeDisposable()
     private val halfScreen by lazy {
         val displayMetrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -53,20 +53,17 @@ class LatestListFragment : Fragment(R.layout.fragment_latest) {
     override fun onResume() {
         super.onResume()
         with(viewModel) {
-            renderDisposables.addAll(
+            disposeOnPause(
                 data.subscribe {
                     wallpaperAdapter.submitData(lifecycle, it)
                 },
                 loading.subscribe {
                     swipeToRefresh.post { swipeToRefresh.isRefreshing = it }
                 },
-                error.subscribe { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+                error.subscribe {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                }
             )
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        renderDisposables.clear()
     }
 }

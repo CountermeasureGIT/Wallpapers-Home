@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -15,10 +14,12 @@ import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detailed.*
 import ru.countermeasure.wallpapershome.R
+import ru.countermeasure.wallpapershome.base.BaseFragment
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 
 @AndroidEntryPoint
-class DetailedFragment : Fragment(R.layout.fragment_detailed) {
+class DetailedFragment : BaseFragment() {
+    override val layoutRes: Int = R.layout.fragment_detailed
 
     private val listWallpaper: ListWallpaper by lazy {
         requireNotNull(requireArguments().getParcelable(ARG_LIST_WALLPAPER)) {
@@ -83,7 +84,6 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
     override fun onResume() {
         super.onResume()
-        detailedViewModel.test()
     }
 
     companion object {
