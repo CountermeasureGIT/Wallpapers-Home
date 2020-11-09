@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.presentation.toplist
+package ru.countermeasure.wallpapershome.presentation.search
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
@@ -13,16 +13,16 @@ import ru.countermeasure.wallpapershome.domain.model.Filter
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 import ru.countermeasure.wallpapershome.interactor.WallpapersPagingInteractor
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel
+import ru.countermeasure.wallpapershome.presentation.search.search_filter.SearchFilterPublisher
 
-class TopListViewModel @ViewModelInject constructor(
+class SearchViewModel @ViewModelInject constructor(
+    private val searchFilterPublisher: SearchFilterPublisher,
     private val wallheavenService: WallheavenService,
-    private val wallpapersInteractor: WallpapersPagingInteractor = WallpapersPagingInteractor(
-        wallheavenService
-    )
+    private val wallpapersInteractor: WallpapersPagingInteractor
 ) : BaseViewModel() {
-    private var currentFilter = Filter(
-        sorting = Filter.Sorting.TOPLIST,
-        topRange = Filter.TopRange.M1,
+
+    private val defaultFilter = Filter(
+        sorting = Filter.Sorting.RELEVANCE,
         order = Filter.Order.DESC,
         categories = listOf(Filter.Category.ANIME, Filter.Category.GENERAL, Filter.Category.PEOPLE)
     )
@@ -30,15 +30,24 @@ class TopListViewModel @ViewModelInject constructor(
     private val loadingRelay = BehaviorRelay.createDefault(false)
     private val dataRelay = BehaviorRelay.create<PagingData<ListWallpaper>>()
     private val errorRelay = BehaviorRelay.create<String>()
-    private val filterRelay = BehaviorRelay.createDefault(currentFilter)
 
     val data: Observable<PagingData<ListWallpaper>> = dataRelay.hide()
     val loading: Observable<Boolean> = loadingRelay.hide()
     val error: Observable<String> = errorRelay.hide()
-    val filter: Observable<Filter> = filterRelay.hide()
 
     init {
-        wallpapersInteractor.getWallpapersListStream(currentFilter)
+        searchFilterPublisher.apply {
+            sharedDefaultFilter = this@SearchViewModel.defaultFilter
+            acceptFilter(sharedDefaultFilter)
+
+            filterObservable.subscribe {
+                fetchData(it)
+            }.collect()
+        }
+    }
+
+    private fun fetchData(filter: Filter) {
+        wallpapersInteractor.getWallpapersListStream(filter)
             .cachedIn(viewModelScope)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -47,9 +56,5 @@ class TopListViewModel @ViewModelInject constructor(
             .subscribe {
                 dataRelay.accept(it)
             }.collect()
-    }
-
-    fun onFilterChange(newFilter: Filter) {
-        filterRelay.accept(newFilter)
     }
 }

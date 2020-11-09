@@ -15,11 +15,11 @@ data class Filter(
 
     /** Method of sorting results:
      * date_added(default if not present), relevance, random, views, favorites, toplist*/
-    val sorting: Sorting,
+    val sorting: Sorting = Sorting.RELEVANCE,
 
     /** Sorting order:
      * desc(default if not present), asc*/
-    val order: Order? = null,
+    val order: Order = Order.DESC,
 
     /** Sorting MUST be set to 'toplist':
      * 1d, 3d, 1w, 1M(default if not present), 3M, 6M, 1y*/
@@ -36,6 +36,9 @@ data class Filter(
         private const val FUZZ_SEARCH_DIVIDER = " "
         private const val TAG_INCLUSIVE_PREFIX = "+"
         private const val TAG_EXCLUSIVE_PREFIX = "-"
+
+        fun createEmptyFilter() =
+            Filter(categories = listOf(Category.ANIME, Category.GENERAL, Category.PEOPLE))
     }
 
     fun getQuery(page: Int) = buildQuery(page)
@@ -47,9 +50,13 @@ data class Filter(
                 if (searchFuzzily.isNotEmpty())
                     append(searchFuzzily.joinToString(separator = FUZZ_SEARCH_DIVIDER))
                 if (tagsInclude.isNotEmpty())
-                    append(tagsInclude.joinToString(prefix = TAG_INCLUSIVE_PREFIX))
+                    append(tagsInclude.joinToString(separator = "") {
+                        "$TAG_INCLUSIVE_PREFIX$it"
+                    })
                 if (tagsExclude.isNotEmpty())
-                    append(tagsExclude.joinToString(prefix = TAG_EXCLUSIVE_PREFIX))
+                    append(tagsExclude.joinToString(separator = "") {
+                        "$TAG_EXCLUSIVE_PREFIX$it"
+                    })
             }
             if (queryString.isNotEmpty())
                 put(SEARCH_QUERY, queryString)

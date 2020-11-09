@@ -10,4 +10,9 @@
     <string name="detailed_screen_set_as_wallpaper_button">Set as wallpaper</string>
     <string name="detailed_screen_download_button">Download</string>
     <string name="detailed_screen_share_button">Share</string>
+    <string name="search">Search</string>
+    <string name="search_screen_text_hint">Text</string>
+    <string name="search_screen_tag_hint">Tag</string>
+    <string name="search_screen_apply_filter_button">Apply</string>
+    <string name="search_screen_reset_filter_button">Reset</string>
 </resources>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="navigationAnimationTime" format="reference"/>
+    <attr name="navigationAnimationTime" format="reference" />
+    <attr name="fancyBackgroundColorStart" format="reference" />
+    <attr name="fancyBackgroundColorEnd" format="reference" />
+    <attr name="filterBackgroundColor" format="reference" />
 </resources>

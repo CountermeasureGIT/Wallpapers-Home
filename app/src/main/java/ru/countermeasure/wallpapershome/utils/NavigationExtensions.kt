@@ -21,8 +21,8 @@ fun FragmentManager.backTo(fragment: Class<*>?) {
 fun FragmentManager.navigateTo(
     fragment: Class<out Fragment>,
     args: Bundle? = null,
-    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null,
-    containerId: Int = defaultContainerId
+    containerId: Int = defaultContainerId,
+    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null
 ) {
     val fragmentTransaction = beginTransaction()
     setupFragmentTransaction?.invoke(fragmentTransaction)
@@ -36,8 +36,8 @@ fun FragmentManager.navigateTo(
 fun FragmentManager.replace(
     fragment: Class<out Fragment>,
     args: Bundle? = null,
-    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null,
-    containerId: Int = defaultContainerId
+    containerId: Int = defaultContainerId,
+    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null
 ) {
     if (backStackEntryCount > 0) {
         popBackStack()
@@ -65,28 +65,28 @@ fun FragmentManager.newRootScreen(
     containerId: Int = defaultContainerId
 ) {
     backTo(null)
-    replace(fragment, args, setupFragmentTransaction, containerId)
+    replace(fragment, args, containerId, setupFragmentTransaction)
 }
 
 fun FragmentManager.newRootChain(
     vararg fragments: Pair<Class<out Fragment>, Bundle?>,
-    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null,
-    containerId: Int = defaultContainerId
+    containerId: Int = defaultContainerId,
+    setupFragmentTransaction: ((FragmentTransaction) -> Unit)? = null
 ) {
     backTo(null)
     if (fragments.isNotEmpty()) {
         replace(
             fragments[0].first,
             fragments[0].second,
-            setupFragmentTransaction,
-            containerId
+            containerId,
+            setupFragmentTransaction
         )
         for (i in 1 until fragments.size) {
             navigateTo(
                 fragments[i].first,
                 fragments[i].second,
-                setupFragmentTransaction,
-                containerId
+                containerId,
+                setupFragmentTransaction
             )
         }
     }

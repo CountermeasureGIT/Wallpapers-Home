@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
-import ru.countermeasure.wallpapershome.base.BaseViewModel
 import ru.countermeasure.wallpapershome.data.network.WallheavenService
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
+import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel
 
 class DetailedViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle,

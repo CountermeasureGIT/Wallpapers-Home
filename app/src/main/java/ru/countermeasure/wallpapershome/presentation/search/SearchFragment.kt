@@ -1,36 +1,35 @@
-package ru.countermeasure.wallpapershome.presentation.toplist
+package ru.countermeasure.wallpapershome.presentation.search
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.doOnPreDraw
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_toplist.*
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_toplist.wallpapersRecyclerView
 import ru.countermeasure.wallpapershome.R
 import ru.countermeasure.wallpapershome.presentation.WallpaperAdapter
 import ru.countermeasure.wallpapershome.presentation.WallpapersLoadStateAdapter
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation.detailed.DetailedFragment
+import ru.countermeasure.wallpapershome.presentation.search.search_filter.SearchFilterFragment
+import ru.countermeasure.wallpapershome.utils.hideKeyboard
 import ru.countermeasure.wallpapershome.utils.navigateTo
+import ru.countermeasure.wallpapershome.utils.screenWidth
 import ru.countermeasure.wallpapershome.utils.setSlideAnimation
 
 @AndroidEntryPoint
-class TopListFragment : BaseFragment() {
-    override val layoutRes: Int = R.layout.fragment_toplist
-    private val viewModel: TopListViewModel by viewModels()
+class SearchFragment : BaseFragment() {
+    override val layoutRes: Int = R.layout.fragment_search
+    private val viewModel: SearchViewModel by viewModels()
 
-    private val halfScreen by lazy {
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        val listPadding = resources.getDimension(R.dimen.wallpaper_list_padding).toInt() * 2
-        (displayMetrics.widthPixels - listPadding) / 2
-    }
+    private val halfScreen by lazy { screenWidth() }
     private val wallpaperAdapter by lazy {
         WallpaperAdapter(halfScreen) {
+            hideKeyboard()
             activity?.supportFragmentManager?.navigateTo(
                 DetailedFragment::class.java,
                 args = DetailedFragment.createBundle(it),
@@ -41,9 +40,16 @@ class TopListFragment : BaseFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null)
+            childFragmentManager.commit {
+                add(R.id.filterFragmentContainer, SearchFilterFragment::class.java, null)
+            }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         wallpapersRecyclerView.apply {
             adapter = wallpaperAdapter.withLoadStateFooter(
                 footer = WallpapersLoadStateAdapter {
@@ -60,8 +66,13 @@ class TopListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        toolbar.apply {
+            setNavigationOnClickListener {
+                hideKeyboard()
+                activity?.onBackPressed()
+            }
+        }
+        ViewCompat.requestApplyInsets(coordinatorLayout)
     }
 
     override fun onResume() {
@@ -71,15 +82,8 @@ class TopListFragment : BaseFragment() {
                 data.subscribe {
                     wallpaperAdapter.submitData(lifecycle, it)
                 },
-                loading.subscribe {
-                    swipeToRefresh.post { swipeToRefresh.isRefreshing = it }
-                },
                 error.subscribe { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
             )
         }
-    }
-
-    companion object {
-        fun newInstance() = TopListFragment()
     }
 }

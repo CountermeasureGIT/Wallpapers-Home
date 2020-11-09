@@ -4,10 +4,16 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar" />
 
     <style name="AppTheme.Dark">
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Demo.BottomSheetDialog</item>
+
         <item name="navigationAnimationTime">@android:integer/config_mediumAnimTime</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/wallheavenBackgroundColorEnd</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="fancyBackgroundColorStart">@color/wallheavenBackgroundColorStart</item>
+        <item name="fancyBackgroundColorEnd">@color/wallheavenBackgroundColorEnd</item>
+        <item name="filterBackgroundColor">@android:color/transparent</item>
     </style>
 
 </resources>

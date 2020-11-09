@@ -53,7 +53,7 @@ class WallpaperAdapter(
                 wallpaperImageView.updateLayoutParams {
                     width = halfScreen
                     wallpaperImageView.layoutParams.height =
-                        round(halfScreen / (wallpaper.dimensionX.toDouble() / wallpaper.dimensionY)).toInt()
+                        round(halfScreen * wallpaper.dimensionY / wallpaper.dimensionX.toDouble()).toInt()
                 }
 
                 Glide.with(wallpaperImageView.context)

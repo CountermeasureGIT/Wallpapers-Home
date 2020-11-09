@@ -31,6 +31,13 @@ class WallpapersPagingInteractor @Inject constructor(
         return pager.flowable
     }
 
+    fun changeFilter(newFilter: Filter) {
+        if (filter == newFilter)
+            return
+        filter = newFilter
+        pagingSource.invalidate()
+    }
+
     private fun createPager(): Pager<Int, ListWallpaper> {
         return Pager(
             PagingConfig(

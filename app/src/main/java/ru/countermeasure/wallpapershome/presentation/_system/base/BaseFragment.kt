@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.base
+package ru.countermeasure.wallpapershome.presentation._system.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

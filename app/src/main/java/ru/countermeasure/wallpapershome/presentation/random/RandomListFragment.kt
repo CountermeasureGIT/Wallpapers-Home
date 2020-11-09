@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_random.*
 import ru.countermeasure.wallpapershome.R
-import ru.countermeasure.wallpapershome.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation.WallpaperAdapter
+import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation.detailed.DetailedFragment
 import ru.countermeasure.wallpapershome.utils.navigateTo
 import ru.countermeasure.wallpapershome.utils.setSlideAnimation

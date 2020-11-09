@@ -8,11 +8,11 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.countermeasure.wallpapershome.base.BaseViewModel
 import ru.countermeasure.wallpapershome.data.network.WallheavenService
 import ru.countermeasure.wallpapershome.domain.model.Filter
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 import ru.countermeasure.wallpapershome.interactor.WallpapersPagingInteractor
+import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel
 
 class RandomListViewModel @ViewModelInject constructor(
     private val wallheavenService: WallheavenService,
@@ -21,7 +21,7 @@ class RandomListViewModel @ViewModelInject constructor(
     private var currentFilter = Filter(
         sorting = Filter.Sorting.RANDOM,
         topRange = Filter.TopRange.M1,
-        categories = listOf(/*Filter.Category.ANIME, */Filter.Category.GENERAL /*Filter.Category.PEOPLE*/)
+        categories = listOf(Filter.Category.ANIME, Filter.Category.GENERAL, Filter.Category.PEOPLE)
     )
 
     private val loadingRelay = BehaviorRelay.createDefault(false)
