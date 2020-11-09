@@ -3,7 +3,6 @@ package ru.countermeasure.wallpapershome.presentation.detailed
 import android.app.WallpaperManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -17,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_detailed.*
 import ru.countermeasure.wallpapershome.R
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
+import ru.countermeasure.wallpapershome.utils.screenWidth
 
 
 @AndroidEntryPoint
@@ -67,10 +67,6 @@ class DetailedFragment : BaseFragment() {
             }
         }
 
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-        val screenWidth = displayMetrics.widthPixels
-
         Glide.with(this)
             .load(listWallpaper.path)
             .thumbnail(
@@ -78,7 +74,7 @@ class DetailedFragment : BaseFragment() {
                     .load(listWallpaper.thumbs?.original)
                     .addListener(listener)
             )
-            .override(screenWidth)
+            .override(screenWidth())
             .addListener(listener)
             .into(wallpaperImageView)
     }

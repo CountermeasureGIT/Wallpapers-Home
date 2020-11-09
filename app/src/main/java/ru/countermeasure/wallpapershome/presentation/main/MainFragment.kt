@@ -25,16 +25,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         )
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewPager.adapter = MainFragmentStateAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         rootToolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.action_search) {
                 activity?.supportFragmentManager?.navigateTo(SearchFragment::class.java) {
@@ -51,7 +48,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment = when (position) {
-            0 -> TopListFragment.newInstance()
+            0 -> TopListFragment()
             1 -> LatestListFragment()
             else -> RandomListFragment()
         }

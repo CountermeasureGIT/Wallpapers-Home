@@ -8,14 +8,12 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.countermeasure.wallpapershome.data.network.WallheavenService
 import ru.countermeasure.wallpapershome.domain.model.Filter
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 import ru.countermeasure.wallpapershome.interactor.WallpapersPagingInteractor
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel
 
 class LatestViewModel @ViewModelInject constructor(
-    private val wallheavenService: WallheavenService,
     private val wallpapersInteractor: WallpapersPagingInteractor
 ) : BaseViewModel() {
     private var currentFilter = Filter(
@@ -28,12 +26,10 @@ class LatestViewModel @ViewModelInject constructor(
     private val loadingRelay = BehaviorRelay.createDefault(false)
     private val dataRelay = BehaviorRelay.create<PagingData<ListWallpaper>>()
     private val errorRelay = BehaviorRelay.create<String>()
-    private val filterRelay = BehaviorRelay.createDefault(currentFilter)
 
     val data: Observable<PagingData<ListWallpaper>> = dataRelay.hide()
     val loading: Observable<Boolean> = loadingRelay.hide()
     val error: Observable<String> = errorRelay.hide()
-    val filter: Observable<Filter> = filterRelay.hide()
 
     init {
         wallpapersInteractor.getWallpapersListStream(currentFilter)
@@ -45,9 +41,5 @@ class LatestViewModel @ViewModelInject constructor(
             .subscribe {
                 dataRelay.accept(it)
             }.collect()
-    }
-
-    fun onFilterChange(newFilter: Filter) {
-        filterRelay.accept(newFilter)
     }
 }

@@ -1,9 +1,7 @@
 package ru.countermeasure.wallpapershome.presentation.toplist
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,6 +13,7 @@ import ru.countermeasure.wallpapershome.presentation.WallpapersLoadStateAdapter
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation.detailed.DetailedFragment
 import ru.countermeasure.wallpapershome.utils.navigateTo
+import ru.countermeasure.wallpapershome.utils.screenWidth
 import ru.countermeasure.wallpapershome.utils.setSlideAnimation
 
 @AndroidEntryPoint
@@ -22,13 +21,7 @@ class TopListFragment : BaseFragment() {
     override val layoutRes: Int = R.layout.fragment_toplist
     private val viewModel: TopListViewModel by viewModels()
 
-    private val halfScreen by lazy {
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        val listPadding = resources.getDimension(R.dimen.wallpaper_list_padding).toInt() * 2
-        (displayMetrics.widthPixels - listPadding) / 2
-    }
+    private val halfScreen by lazy { screenWidth() / 2 }
     private val wallpaperAdapter by lazy {
         WallpaperAdapter(halfScreen) {
             activity?.supportFragmentManager?.navigateTo(
@@ -73,13 +66,8 @@ class TopListFragment : BaseFragment() {
                 },
                 loading.subscribe {
                     swipeToRefresh.post { swipeToRefresh.isRefreshing = it }
-                },
-                error.subscribe { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
+                }
             )
         }
-    }
-
-    companion object {
-        fun newInstance() = TopListFragment()
     }
 }

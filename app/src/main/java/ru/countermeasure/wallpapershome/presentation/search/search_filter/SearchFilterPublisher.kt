@@ -11,7 +11,8 @@ class SearchFilterPublisher @Inject constructor() {
     var sharedDefaultFilter: Filter = Filter.createEmptyFilter()
 
     private val filterRelay = BehaviorRelay.createDefault(sharedDefaultFilter)
-    val currentFilter = filterRelay.value!!
+    val currentFilter
+        get() = filterRelay.value!!
     val filterObservable: Observable<Filter> = filterRelay.hide()
 
     fun acceptFilter(newFilter: Filter) {

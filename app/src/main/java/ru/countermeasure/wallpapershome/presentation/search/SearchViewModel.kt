@@ -8,7 +8,6 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.countermeasure.wallpapershome.data.network.WallheavenService
 import ru.countermeasure.wallpapershome.domain.model.Filter
 import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
 import ru.countermeasure.wallpapershome.interactor.WallpapersPagingInteractor
@@ -17,7 +16,6 @@ import ru.countermeasure.wallpapershome.presentation.search.search_filter.Search
 
 class SearchViewModel @ViewModelInject constructor(
     private val searchFilterPublisher: SearchFilterPublisher,
-    private val wallheavenService: WallheavenService,
     private val wallpapersInteractor: WallpapersPagingInteractor
 ) : BaseViewModel() {
 
@@ -29,11 +27,8 @@ class SearchViewModel @ViewModelInject constructor(
 
     private val loadingRelay = BehaviorRelay.createDefault(false)
     private val dataRelay = BehaviorRelay.create<PagingData<ListWallpaper>>()
-    private val errorRelay = BehaviorRelay.create<String>()
 
     val data: Observable<PagingData<ListWallpaper>> = dataRelay.hide()
-    val loading: Observable<Boolean> = loadingRelay.hide()
-    val error: Observable<String> = errorRelay.hide()
 
     init {
         searchFilterPublisher.apply {

@@ -80,6 +80,7 @@ class SearchFilterFragment : BaseFragment() {
 
     private fun deleteTag(id: Int) {
         tagsChipGroup.findViewById<Chip>(id)?.let { chip ->
+            TransitionManager.beginDelayedTransition(tagsChipGroup, Fade())
             tagsChipGroup.removeView(chip)
         }
 

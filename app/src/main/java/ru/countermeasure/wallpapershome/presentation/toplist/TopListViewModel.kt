@@ -29,13 +29,9 @@ class TopListViewModel @ViewModelInject constructor(
 
     private val loadingRelay = BehaviorRelay.createDefault(false)
     private val dataRelay = BehaviorRelay.create<PagingData<ListWallpaper>>()
-    private val errorRelay = BehaviorRelay.create<String>()
-    private val filterRelay = BehaviorRelay.createDefault(currentFilter)
 
     val data: Observable<PagingData<ListWallpaper>> = dataRelay.hide()
     val loading: Observable<Boolean> = loadingRelay.hide()
-    val error: Observable<String> = errorRelay.hide()
-    val filter: Observable<Filter> = filterRelay.hide()
 
     init {
         wallpapersInteractor.getWallpapersListStream(currentFilter)
@@ -47,9 +43,5 @@ class TopListViewModel @ViewModelInject constructor(
             .subscribe {
                 dataRelay.accept(it)
             }.collect()
-    }
-
-    fun onFilterChange(newFilter: Filter) {
-        filterRelay.accept(newFilter)
     }
 }

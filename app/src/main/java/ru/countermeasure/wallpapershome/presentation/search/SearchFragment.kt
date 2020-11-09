@@ -2,7 +2,6 @@ package ru.countermeasure.wallpapershome.presentation.search
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -26,7 +25,7 @@ class SearchFragment : BaseFragment() {
     override val layoutRes: Int = R.layout.fragment_search
     private val viewModel: SearchViewModel by viewModels()
 
-    private val halfScreen by lazy { screenWidth() }
+    private val halfScreen by lazy { screenWidth() / 2 }
     private val wallpaperAdapter by lazy {
         WallpaperAdapter(halfScreen) {
             hideKeyboard()
@@ -77,13 +76,10 @@ class SearchFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        with(viewModel) {
-            disposeOnPause(
-                data.subscribe {
-                    wallpaperAdapter.submitData(lifecycle, it)
-                },
-                error.subscribe { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
-            )
-        }
+        disposeOnPause(
+            viewModel.data.subscribe {
+                wallpaperAdapter.submitData(lifecycle, it)
+            }
+        )
     }
 }

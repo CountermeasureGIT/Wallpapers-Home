@@ -13,10 +13,8 @@ class SearchFilterViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     private var searchText: String? = null
-    private var tagsIncluded: MutableList<String> =
-        searchFilterPublisher.sharedDefaultFilter.tagsInclude.toMutableList()
-    private var tagsExcluded: MutableList<String> =
-        searchFilterPublisher.sharedDefaultFilter.tagsExclude.toMutableList()
+    private lateinit var tagsIncluded: MutableList<String>
+    private lateinit var tagsExcluded: MutableList<String>
 
     private val tagsAddRelay = BehaviorRelay.create<Event<Pair<String, Boolean>>>()
     private val tagsDeleteRelay = BehaviorRelay.create<Event<Triple<Int, String, Boolean>>>()
@@ -26,8 +24,19 @@ class SearchFilterViewModel @ViewModelInject constructor(
     val tagsDeleteObservable: Observable<Event<Triple<Int, String, Boolean>>> =
         tagsDeleteRelay.hide()
     val resetObservable: Observable<Event<Filter>> = resetRelay.hide()
+
     val filter: Filter
         get() = createCurrentFilterRepresentation()
+
+    private fun parseFilter(filter: Filter) {
+        searchText = filter.searchFuzzily.joinToString(separator = " ")
+        tagsIncluded = filter.tagsInclude.toMutableList()
+        tagsExcluded = filter.tagsExclude.toMutableList()
+    }
+
+    init {
+        parseFilter(searchFilterPublisher.currentFilter)
+    }
 
     fun onSearchTextChanged(newSearchString: String?) {
         val trimmedSearchString = newSearchString?.trim()
@@ -68,15 +77,6 @@ class SearchFilterViewModel @ViewModelInject constructor(
             searchFilterPublisher.acceptFilter(newFilter)
     }
 
-    private fun createCurrentFilterRepresentation(): Filter {
-        val searchTextList = searchText?.split(' ').orEmpty()
-        return searchFilterPublisher.currentFilter.copy(
-            searchFuzzily = searchTextList,
-            tagsInclude = tagsIncluded,
-            tagsExclude = tagsExcluded
-        )
-    }
-
     fun onResetButtonClicked() {
         val defaultFilter = searchFilterPublisher.sharedDefaultFilter
 
@@ -85,9 +85,15 @@ class SearchFilterViewModel @ViewModelInject constructor(
         resetRelay.acceptEvent(defaultFilter)
     }
 
-    private fun parseFilter(filter: Filter) {
-        searchText = filter.searchFuzzily.joinToString(separator = " ")
-        tagsIncluded = filter.tagsInclude.toMutableList()
-        tagsExcluded = filter.tagsExclude.toMutableList()
+    private fun createCurrentFilterRepresentation(): Filter {
+        val searchTextList = searchText?.split(' ').orEmpty()
+        val tagsIncludedCopy = tagsIncluded.toList()
+        val tagsExcludedCopy = tagsExcluded.toList()
+
+        return searchFilterPublisher.currentFilter.copy(
+            searchFuzzily = searchTextList,
+            tagsInclude = tagsIncludedCopy,
+            tagsExclude = tagsExcludedCopy
+        )
     }
 }
