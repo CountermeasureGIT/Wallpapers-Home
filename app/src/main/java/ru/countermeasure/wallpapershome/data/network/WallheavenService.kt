@@ -1,11 +1,11 @@
 package ru.countermeasure.wallpapershome.data.network
 
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
-import ru.countermeasure.wallpapershome.domain.model.WallpaperInfoResponse
-import ru.countermeasure.wallpapershome.domain.model.WallpapersListResponse
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.*
+import ru.countermeasure.wallpapershome.domain.models.WallpaperInfoResponse
+import ru.countermeasure.wallpapershome.domain.models.WallpapersListResponse
 
 interface WallheavenService {
 
@@ -16,4 +16,8 @@ interface WallheavenService {
 
     @GET("/w/{id}")
     fun getWallpaperInfo(@Path("id") id: String): Single<WallpaperInfoResponse>
+
+    @Streaming
+    @GET()
+    fun downloadImage(@Url fileUrl: String): Call<ResponseBody>
 }

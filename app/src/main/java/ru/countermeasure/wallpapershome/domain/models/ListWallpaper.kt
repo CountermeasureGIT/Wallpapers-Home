@@ -1,17 +1,18 @@
-package ru.countermeasure.wallpapershome.domain.model
+package ru.countermeasure.wallpapershome.domain.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class DetailedWallpaper(
+@Parcelize
+data class ListWallpaper(
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("url")
-    val url: String?,
+    val url: String,
     @SerializedName("short_url")
     val shortUrl: String?,
-    @SerializedName("uploader")
-    val uploader: Uploader?,
     @SerializedName("views")
     val views: Int?,
     @SerializedName("favorites")
@@ -23,13 +24,13 @@ data class DetailedWallpaper(
     @SerializedName("category")
     val category: String?,
     @SerializedName("dimension_x")
-    val dimensionX: Int?,
+    val dimensionX: Int,
     @SerializedName("dimension_y")
-    val dimensionY: Int?,
+    val dimensionY: Int,
     @SerializedName("resolution")
     val resolution: String?,
     @SerializedName("ratio")
-    val ratio: String?,
+    val ratio: Float,
     @SerializedName("file_size")
     val fileSize: Int?,
     @SerializedName("file_type")
@@ -41,7 +42,5 @@ data class DetailedWallpaper(
     @SerializedName("path")
     val path: String?,
     @SerializedName("thumbs")
-    val thumbs: Thumbs?,
-    @SerializedName("tags")
-    val tags: List<Tag>?
-)
+    val thumbs: Thumbs?
+) : Parcelable

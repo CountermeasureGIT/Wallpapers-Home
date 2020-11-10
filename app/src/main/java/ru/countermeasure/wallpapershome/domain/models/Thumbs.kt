@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.domain.model
+package ru.countermeasure.wallpapershome.domain.models
 
 
 import android.os.Parcelable

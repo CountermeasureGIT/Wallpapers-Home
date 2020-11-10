@@ -3,7 +3,7 @@ package ru.countermeasure.wallpapershome.presentation.search.search_filter
 import androidx.hilt.lifecycle.ViewModelInject
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
-import ru.countermeasure.wallpapershome.domain.model.Filter
+import ru.countermeasure.wallpapershome.domain.models.Filter
 import ru.countermeasure.wallpapershome.presentation._system.Event
 import ru.countermeasure.wallpapershome.presentation._system.acceptEvent
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel

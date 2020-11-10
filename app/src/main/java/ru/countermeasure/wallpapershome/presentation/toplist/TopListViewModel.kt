@@ -9,9 +9,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.countermeasure.wallpapershome.data.network.WallheavenService
-import ru.countermeasure.wallpapershome.domain.model.Filter
-import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
-import ru.countermeasure.wallpapershome.interactor.WallpapersPagingInteractor
+import ru.countermeasure.wallpapershome.domain.interactors.WallpapersPagingInteractor
+import ru.countermeasure.wallpapershome.domain.models.Filter
+import ru.countermeasure.wallpapershome.domain.models.ListWallpaper
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseViewModel
 
 class TopListViewModel @ViewModelInject constructor(

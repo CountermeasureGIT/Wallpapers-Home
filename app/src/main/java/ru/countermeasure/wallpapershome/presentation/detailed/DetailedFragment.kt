@@ -14,7 +14,7 @@ import com.bumptech.glide.request.target.Target
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detailed.*
 import ru.countermeasure.wallpapershome.R
-import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
+import ru.countermeasure.wallpapershome.domain.models.ListWallpaper
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
 import ru.countermeasure.wallpapershome.utils.screenWidth
 

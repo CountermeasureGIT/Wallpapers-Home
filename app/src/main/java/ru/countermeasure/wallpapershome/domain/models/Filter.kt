@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.domain.model
+package ru.countermeasure.wallpapershome.domain.models
 
 data class Filter(
     /** Search fuzzily for a tags/keywords*/

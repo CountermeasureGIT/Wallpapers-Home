@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_wallpaper_card.*
 import ru.countermeasure.wallpapershome.R
-import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
+import ru.countermeasure.wallpapershome.domain.models.ListWallpaper
 import kotlin.math.round
 
 class WallpaperAdapter(

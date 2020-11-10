@@ -11,7 +11,7 @@ import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.view_filter.*
 import ru.countermeasure.wallpapershome.R
-import ru.countermeasure.wallpapershome.domain.model.Filter
+import ru.countermeasure.wallpapershome.domain.models.Filter
 import ru.countermeasure.wallpapershome.presentation._system.base.BaseFragment
 import ru.countermeasure.wallpapershome.presentation._system.subscribeToEvent
 

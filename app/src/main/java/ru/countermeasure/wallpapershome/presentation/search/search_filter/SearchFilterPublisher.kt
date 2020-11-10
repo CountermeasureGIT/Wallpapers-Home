@@ -3,7 +3,7 @@ package ru.countermeasure.wallpapershome.presentation.search.search_filter
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.Observable
-import ru.countermeasure.wallpapershome.domain.model.Filter
+import ru.countermeasure.wallpapershome.domain.models.Filter
 import javax.inject.Inject
 
 @ActivityRetainedScoped

@@ -1,4 +1,4 @@
-package ru.countermeasure.wallpapershome.interactor
+package ru.countermeasure.wallpapershome.domain.interactors
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -8,8 +8,8 @@ import androidx.paging.rxjava2.flowable
 import io.reactivex.Flowable
 import ru.countermeasure.wallpapershome.WallpapersPagingSource
 import ru.countermeasure.wallpapershome.data.network.WallheavenService
-import ru.countermeasure.wallpapershome.domain.model.Filter
-import ru.countermeasure.wallpapershome.domain.model.ListWallpaper
+import ru.countermeasure.wallpapershome.domain.models.Filter
+import ru.countermeasure.wallpapershome.domain.models.ListWallpaper
 import javax.inject.Inject
 
 class WallpapersPagingInteractor @Inject constructor(
