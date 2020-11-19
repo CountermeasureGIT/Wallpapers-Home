@@ -9,6 +9,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import io.reactivex.Observable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_wallpaper_card.*
 import ru.countermeasure.wallpapershome.R
@@ -46,18 +48,16 @@ class WallpaperAdapter(
 
         fun bind(wallpaper: ListWallpaper?) {
             item = wallpaper
-//            imageLoadingProgressBar.isVisible = wallpaper == null
-            wallpaperImageView.isVisible = wallpaper != null
 
             wallpaper?.let {
                 wallpaperImageView.updateLayoutParams {
                     width = halfScreen
-                    wallpaperImageView.layoutParams.height =
-                        round(halfScreen * wallpaper.dimensionY / wallpaper.dimensionX.toDouble()).toInt()
+                    height = round(halfScreen / wallpaper.trueRatio).toInt()
                 }
 
                 Glide.with(wallpaperImageView.context)
                     .load(wallpaper.thumbs?.original)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(wallpaperImageView)
             }
         }

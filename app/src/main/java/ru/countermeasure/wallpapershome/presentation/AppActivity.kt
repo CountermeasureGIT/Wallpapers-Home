@@ -18,4 +18,11 @@ class AppActivity : AppCompatActivity() {
         if (isColdStart)
             supportFragmentManager.newRootScreen(MainFragment::class.java)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //TODO do with OneTime work by WorkManager
+        if (!isChangingConfigurations)
+            applicationContext.cacheDir.deleteRecursively()
+    }
 }

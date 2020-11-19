@@ -18,6 +18,6 @@ interface WallheavenService {
     fun getWallpaperInfo(@Path("id") id: String): Single<WallpaperInfoResponse>
 
     @Streaming
-    @GET()
-    fun downloadImage(@Url fileUrl: String): Call<ResponseBody>
+    @GET
+    fun downloadImage(@Url imageUrl: String): Call<ResponseBody>
 }

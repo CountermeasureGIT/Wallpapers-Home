@@ -10,7 +10,7 @@ data class ListWallpaper(
     @SerializedName("id")
     val id: String,
     @SerializedName("url")
-    val url: String,
+    val url: String?,
     @SerializedName("short_url")
     val shortUrl: String?,
     @SerializedName("views")
@@ -40,7 +40,10 @@ data class ListWallpaper(
     @SerializedName("colors")
     val colors: List<String>?,
     @SerializedName("path")
-    val path: String?,
+    val path: String,
     @SerializedName("thumbs")
     val thumbs: Thumbs?
-) : Parcelable
+) : Parcelable {
+    val trueRatio: Double
+        get() = dimensionX / dimensionY.toDouble()
+}
